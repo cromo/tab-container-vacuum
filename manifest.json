@@ -1,0 +1,28 @@
+{
+  "manifest_version": 2,
+  "name": "Tab Container Vacuum",
+  "description": "Removes unused container tabs matching a given name.",
+  "version": "0.1.0",
+  "icons": {
+    "64": "icons/icon.png"
+  },
+  "background": {
+    "scripts": [
+      "background_script.js"
+    ]
+  },
+  "browser_action": {
+    "default_icon": {
+      "64": "icons/icon.png"
+    },
+    "default_popup": "browserAction/index.html",
+    "default_title": "Tab Container Vacuum"
+  },
+  "options_ui": {
+    "page": "options/index.html"
+  },
+  "permissions": [
+    "contextualIdentities",
+    "cookies"
+  ]
+}
