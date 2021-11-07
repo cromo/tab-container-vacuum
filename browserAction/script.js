@@ -19,8 +19,6 @@ const deleteButton = document.getElementById("delete-unused");
 
     const unusedTempContainers = containers.filter(({ cookieStoreId, name }) => /tmp/.test(name) && !containerIdsInUse.has(cookieStoreId));
 
-    console.log(containersInUse.map(({ name }) => name));
-
     inUseUI.innerHTML = ["<ul>", ...containersInUse.map(({ name }) => `<li>${name}</li>`), "</ul>"].join("");
     unusedUI.innerHTML = unusedTempContainers.length === 0 ? "None found" : ["<ul>", ...unusedTempContainers.map(({ name }) => `<li>${name}</li>`), "</ul>"].join("");
 
