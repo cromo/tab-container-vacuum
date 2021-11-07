@@ -45,7 +45,6 @@ async function getAllContainers() {
 
 function lookupContainerByCookieStoreId(containers) {
     const containersById = new Map(containers.map((container) => [container.cookieStoreId, container]));
-    console.log(containersById);
     return (id) => containersById.get(id);
 }
 
