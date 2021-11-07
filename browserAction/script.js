@@ -3,8 +3,13 @@ document.getElementById('myHeading').style.color = 'red';
 const inUseUI = document.getElementById("in-use");
 const unusedUI = document.getElementById("unused");
 const deleteButton = document.getElementById("delete-unused");
+const patternField = document.getElementById("pattern");
+const searchButton = document.getElementById("search");
 
-(async () => {
+updateContainerLists();
+searchButton.onclick = () => updateContainerLists();
+
+async function updateContainerLists() {
     const containerIdsInUse = await getActiveContainerIds();
     const containers = await getAllContainers();
 
@@ -17,15 +22,19 @@ const deleteButton = document.getElementById("delete-unused");
         .map(lookupContainerByCookieStoreId(containers))
         .filter(isDefined);
 
+    const pattern = patternField.value === "" ? /^tmp\d+$/ : new RegExp(patternField.value);
     const unusedTempContainers = containers
-        .filter(chain(pluck("name"), matchesRegex(/tmp/)))
+        .filter(chain(pluck("name"), matchesRegex(pattern)))
         .filter(({ cookieStoreId }) => !containerIdsInUse.has(cookieStoreId));
 
     inUseUI.innerHTML = toUnorderedList(containersInUse.map(pluck("name")));
     unusedUI.innerHTML = unusedTempContainers.length === 0 ? "None found" : toUnorderedList(unusedTempContainers.map(pluck("name")));
 
-    deleteButton.addEventListener("click", () => deleteContainers(unusedTempContainers));
-})();
+    deleteButton.onclick = async () => {
+        await deleteContainers(unusedTempContainers);
+        updateContainerLists();
+    };
+};
 
 function matchesRegex(regex) {
     return (string) => regex.test(string);
