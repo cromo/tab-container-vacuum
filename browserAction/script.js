@@ -19,8 +19,8 @@ const deleteButton = document.getElementById("delete-unused");
 
     const unusedTempContainers = containers.filter(({ cookieStoreId, name }) => /tmp/.test(name) && !containerIdsInUse.has(cookieStoreId));
 
-    inUseUI.innerHTML = ["<ul>", ...containersInUse.map(({ name }) => `<li>${name}</li>`), "</ul>"].join("");
-    unusedUI.innerHTML = unusedTempContainers.length === 0 ? "None found" : ["<ul>", ...unusedTempContainers.map(({ name }) => `<li>${name}</li>`), "</ul>"].join("");
+    inUseUI.innerHTML = toUnorderedList(containersInUse.map(pluckName));
+    unusedUI.innerHTML = unusedTempContainers.length === 0 ? "None found" : toUnorderedList(unusedTempContainers.map(pluckName));
 
     deleteButton.addEventListener("click", () => deleteContainers(unusedTempContainers));
 })();
@@ -37,10 +37,18 @@ function pluckCookieStoreId({ cookieStoreId }) {
     return cookieStoreId;
 }
 
+function pluckName({ name }) {
+    return name;
+}
+
 async function deleteContainers(containers) {
     return await Promise.all(containers.map(deleteContainer));
 }
 
 async function deleteContainer({ cookieStoreId }) {
     return browser.contextualIdentities.remove(cookieStoreId);
+}
+
+function toUnorderedList(array) {
+    return ["<ul>", ...array.map((value) => `<li>${value}</li>`), "</ul>"].join("");
 }
