@@ -23,6 +23,7 @@
   },
   "permissions": [
     "contextualIdentities",
-    "cookies"
+    "cookies",
+    "storage"
   ]
 }

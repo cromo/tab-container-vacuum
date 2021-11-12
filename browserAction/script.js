@@ -6,8 +6,16 @@ const deleteButton = document.getElementById("delete-unused");
 const patternField = document.getElementById("pattern");
 const searchButton = document.getElementById("search");
 
-updateContainerLists();
+(async function load() {
+    const { pattern } = await browser.storage.local.get("pattern");
+    if (pattern) {
+        patternField.value = pattern;
+    }
+    updateContainerLists();
+})();
 searchButton.onclick = () => updateContainerLists();
+patternField.addEventListener("input", () =>
+    browser.storage.local.set({ pattern: patternField.value }));
 
 async function updateContainerLists() {
     const containerIdsInUse = await getActiveContainerIds();
