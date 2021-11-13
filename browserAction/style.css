@@ -1,3 +1,42 @@
+body {
+  max-width: 20rem;
+}
+
 h1 {
-  font-style: italic;
+  font-size: 1.5rem;
+}
+
+h2 {
+  font-size: 1rem;
+}
+
+#search-form {
+  display: flex;
+}
+
+#pattern {
+  flex-grow: 1;
+}
+
+#search-form > * + * {
+  margin-left: 1.5em;
+}
+
+#matching-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+#unused {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#unused > * {
+  margin: 0.444rem;
+  padding: 4px;
+  border-radius: 8px;
+  background-color: #ddd;
 }

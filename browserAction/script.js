@@ -1,10 +1,7 @@
-document.getElementById('myHeading').style.color = 'red';
-
-const inUseUI = document.getElementById("in-use");
-const unusedUI = document.getElementById("unused");
-const deleteButton = document.getElementById("delete-unused");
 const patternField = document.getElementById("pattern");
 const searchButton = document.getElementById("search");
+const deleteButton = document.getElementById("delete-unused");
+const unusedUI = document.getElementById("unused");
 
 (async function load() {
     const { pattern } = await browser.storage.local.get("pattern");
@@ -35,8 +32,10 @@ async function updateContainerLists() {
         .filter(chain(pluck("name"), matchesRegex(pattern)))
         .filter(({ cookieStoreId }) => !containerIdsInUse.has(cookieStoreId));
 
-    inUseUI.innerHTML = toUnorderedList(containersInUse.map(pluck("name")));
-    unusedUI.innerHTML = unusedTempContainers.length === 0 ? "None found" : toUnorderedList(unusedTempContainers.map(pluck("name")));
+    unusedUI.innerHTML = unusedTempContainers.length === 0 ?
+        "None found" :
+        unusedTempContainers.map(({ name }) => `<span>${name}</span>`).join("");
+        // toUnorderedList(unusedTempContainers.map(pluck("name")));
 
     deleteButton.onclick = async () => {
         await deleteContainers(unusedTempContainers);

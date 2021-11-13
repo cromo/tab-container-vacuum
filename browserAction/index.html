@@ -7,13 +7,15 @@
 </head>
 
 <body>
-  <h1 id="myHeading">Tab Container Vacuum</h1>
-  <input type="text" id="pattern" placeholder="^tmp\d+$">
-  <button id="search">Search</button>
-  <h2>Container IDs in use</h2>
-  <div id="in-use"></div>
-  <h2>Container IDs not in use that match /tmp/</h2>
-  <button id="delete-unused">Delete unused temporary containers</button>
+  <h1>Tab Container Vacuum</h1>
+  <form id="search-form">
+    <input type="text" id="pattern" placeholder="^tmp\d+$">
+    <button id="search">Search</button>
+  </form>
+  <div id="matching-section">
+    <h2>Matching containers not in use</h2>
+    <button id="delete-unused">Delete listed</button>
+  </div>
   <div id="unused"></div>
   <script src="script.js"></script>
 </body>
