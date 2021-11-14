@@ -32,6 +32,8 @@ h2 {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  max-height: 13.5rem;
+  overflow: auto;
 }
 
 #unused > * {
