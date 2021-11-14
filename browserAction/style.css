@@ -22,12 +22,6 @@ h2 {
   margin-left: 1.5em;
 }
 
-#matching-section {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-}
-
 #unused {
   display: flex;
   flex-wrap: wrap;
@@ -41,4 +35,9 @@ h2 {
   padding: 4px;
   border-radius: 8px;
   background-color: #ddd;
+}
+
+#delete-unused {
+  float: right;
+  margin: 1rem;
 }
